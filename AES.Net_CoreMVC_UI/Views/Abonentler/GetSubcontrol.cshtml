@@ -1,0 +1,174 @@
+﻿
+@{
+    ViewData["Title"] = "GetSubcontrol";
+}
+
+@model AbonentGostericiModel;
+
+@section breadcramb{
+    <li>
+        <a asp-controller="Abonentler" asp-action="Index">Abonentlər</a>
+    </li>
+}
+@section styles{
+    <link href="~/HTMLAdmin/assets/css/required/select2.min.css" rel="stylesheet" />
+    <link type="text/css" href="~/HTMLAdmin/assets/css/demo-files/form-extras.css" rel="stylesheet" />
+
+    <link type="text/css" href="~/HTMLAdmin/assets/css/optional/switchery.min.css" rel="stylesheet" />
+    <link type="text/css" href="~/HTMLAdmin/assets/css/optional/powerange.min.css" rel="stylesheet" />
+    <link type="text/css" href="~/HTMLAdmin/assets/css/optional/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+    <link type="text/css" href="~/HTMLAdmin/assets/css/optional/bootstrap-tagsinput.min.css" rel="stylesheet" />
+    <link type="text/css" href="~/HTMLAdmin/assets/css/optional/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link type="text/css" href="~/HTMLAdmin/assets/css/optional/bootstrap-multiselect.min.css" rel="stylesheet" />
+
+    <style>
+        .my-custom-scroolbar {
+            position: relative;
+            height: 200px;
+            overflow: auto;
+        }
+
+        .table-wrapper-scrool-y {
+            display: block;
+        }
+    </style>
+}
+
+<form role="form" asp-controller="Abonentler" asp-action="UpdateSubcontrol">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="block basic-buttons-rounded">
+                <div class="block-heading">
+                    <div class="main-text h2">
+                        Əməliyatlar
+                    </div>
+                    <div class="block-controls">
+                        <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+                    </div>
+                </div>
+                <div class="block-content-outer" style="height:100px;">
+                    <div class="block-content-inner">
+                        <div class="col-md-9">
+                            <button type="submit" style="margin-bottom:4px;" class="btn btn-primary rounded">
+                                <span class="glyphicon glyphicon-save"></span>
+                                Yadda Saxla
+                            </button>
+                            <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                Yeni Elave Moduna Kec
+                            </button>
+                            <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-home"></span>
+
+                            </button>
+                            <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-book"></span>
+
+                            </button>
+                            <button type="button" class="btn btn-primary rounded">
+                                <span class="glyphicon glyphicon-folder-close"></span>
+                            </button>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-control">Abonent:<span style="color:red;"><a asp-controller="Abonentler" asp-action="GETSUBSCRIBERBySUBID" asp-route-id="@Model.SubscribeSUBID">@Model.SubscribeSUBID</a></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="block">
+                <div class="block-heading">
+                    <div class="main-text h2">
+                        Göstərici Girişi Dəyişimi
+                    </div>
+                    <div class="block-controls">
+                        <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+                    </div>
+                </div>
+                <div class="block-content-outer" style="height:700px;">
+                    <div class="block-content-inner">
+                        @*InputWithButton*@
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1" class="col-sm-3">Tarix</label>
+                                <div class="input-group col-sm-9" id="datetimepickerGostericiGunu">
+                                    <input type="date" class="form-control" name="DDATE" value="@Convert.ToDateTime(@Model.Submeter.DDATE).ToString("yyyy-MM-dd")">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1" class="col-sm-3">Elektron Saygac Gostericisi</label>
+                                <div class="input-group col-sm-9">
+                                    <input type="text" class="form-control" name="R_METERVALUE" value="@Model.Submeter.R_METERVALUE">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1" class="col-sm-3">METER VALUE(*)</label>
+                                <div class="input-group col-sm-9">
+                                    <input type="text" class="form-control" name="METERVALUE" value="@Model.Submeter.METERVALUE">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1" class="col-sm-3">PersonelID_SEQ(*)</label>
+                                <div class="input-group col-sm-9">
+                                    <select id="input-demo-v" class="form-control" name="PERSONEL_ID_SEQ">
+                                        <option>Seçim...</option>
+                                        @foreach (var personel in Model.PersonelIdSeqs)
+                                        {
+                                            if (Convert.ToString(ViewBag.Personel) == personel.ID)
+                                            {
+                                                <option selected value="@personel.ID">@personel.NAME</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@personel.ID">@personel.NAME</option>
+                                            }
+
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1" class="col-sm-3">Tezyiq</label>
+                                <div class="input-group col-sm-9">
+                                    <input type="text" class="form-control" name="FARE" value="@Model.Submeter.FARE">
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" value="@Model.Submeter.DDATE" name="old_DDATE"/>
+                        <input type="hidden" value="@Model.Submeter.SUBID" name="SUBID"/>
+                        @*<input type="hidden" value="@Model.Submeter.PERSONEL_ID_SEQ" name="old_PERSONEL_ID_SEQ"/>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+    
+
+
+@section scripts{
+    <script type="text/javascript" src="~/HTMLAdmin/assets/js/required/jquery-1.11.1.min.js"></script>
+
+    <script type="text/javascript">
+
+    </script>
+}
+
+
+
+
+

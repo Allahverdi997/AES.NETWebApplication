@@ -1,0 +1,15 @@
+﻿using AES.Net_CoreLayer.DataAccessLayer.Ado.Net;
+using AES.Net_DataTransactObject.Concrete;
+using AES.Net_Entities.Concrete;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace AES.Net_DataAccessLayer.Abstract
+{
+    public interface ISubscriberDal:IEntityRepository<Subscriber>
+    {
+        List<SubscriberSearchDTO> GetSubscriberSearchDTOs();
+        List<SubscriberSearchDTO> GetSubscriberSearchDTOEntitiy(string id);
+    }
+}

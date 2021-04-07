@@ -1,0 +1,175 @@
+﻿
+@{
+    ViewData["Title"] = "Subcontrol";
+}
+@model AbonentGostericiModel;
+
+<form role="form" class="form-horizontal">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="block basic-buttons-rounded">
+                <div class="block-heading">
+                    <div class="main-text h2">
+                        Emeliyyatlar
+                    </div>
+                    <div class="block-controls">
+                        <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+                    </div>
+                </div>
+                <div class="block-content-outer" style="height:100px;">
+                    <div class="block-content-inner">
+                        <div class="col-md-9">
+                            <button type="button" asp-action="Index" asp-controller="Abonent" style="margin-bottom:4px;" class="btn btn-primary rounded">
+                                <span class="glyphicon glyphicon-save"></span>
+                                Yadda Saxla
+                            </button>
+                            <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                Yeni Elave Moduna Kec
+                            </button>
+                            <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-trash"></span>
+                                Sil
+                            </button>
+                            <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-refresh"></span>
+
+                            </button>
+                            <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-home"></span>
+
+                            </button>
+                            <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-book"></span>
+
+                            </button>
+                            <button type="button" class="btn btn-primary rounded">
+                                <span class="glyphicon glyphicon-folder-close"></span>
+                            </button>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-control">Abonent:<span style="color:red;">@Model.SubscribeSUBID</span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="block">
+                <div class="block-heading">
+                    <div class="main-text h2">
+                        Yeni Gosterici Girisi
+                    </div>
+                    <div class="block-controls">
+                        <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+                    </div>
+                </div>
+                <div class="block-content-outer" style="height:700px;">
+                    <div class="block-content-inner">
+                        @*InputWithButton*@
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1" class="col-sm-3">Tarix</label>
+                                <div class="input-group col-sm-9" id="datetimepickerGostericiGunu">
+                                    <input type="date" class="form-control" name="DDATE">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1" class="col-sm-3">Elektron Saygac Gostericisi</label>
+                                <div class="input-group col-sm-9">
+                                    <input type="text" class="form-control" name="REACTIVE_CH">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1" class="col-sm-3">METER VALUE(*)</label>
+                                <div class="input-group col-sm-9">
+                                    <input type="text" class="form-control" name="R_COS">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1" class="col-sm-3">PersonelID_SEQ(*)</label>
+                                <div class="input-group col-sm-9">
+                                    <select id="input-demo-v" class="form-control" name="PERSONNEL_ID_SEQ">
+                                        <option>Seçim...</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1" class="col-sm-3">Tezyiq</label>
+                                <div class="input-group col-sm-9">
+                                    <input type="text" class="form-control" name="TRANSCOEF">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1" class="col-sm-5">Movcud Gostericiler</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="table-responsive mCSB_scrollTools_horizontal">
+                                <table class="table table-striped table-hover" style="overflow-y:scroll">
+                                    <thead>
+                                        <tr>
+                                            <th>Tarix</th>
+                                            <th>Gun-Sayi</th>
+                                            <th>METER VALUE</th>
+                                            <th>Tarif</th>
+                                            <th>Serfiyyat</th>
+                                            <th>Effektiv Serfiyyat</th>
+                                            <th>Effektiv Deyer</th>
+                                            <th>Elektron Saygac Gostericisi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @*@foreach (var submeter in Model.Submeters)
+                                            {*@
+                                        <tr>
+                                            <td>Tarix</td>
+                                            <td>Gun-Sayi</td>
+                                            <td>METER VALUE</td>
+                                            <td>Tarif</td>
+                                            <td>Serfiyyat</td>
+                                            <td>Effektiv Serfiyyat</td>
+                                            <td>Effektiv Deyer</td>
+                                            <td>Elektron Saygac Gostericisi</td>
+                                        </tr>
+                                        @*}*@
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+
+
+
+
+
+
+

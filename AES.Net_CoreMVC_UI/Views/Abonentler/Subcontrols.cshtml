@@ -1,0 +1,156 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model AbonentGostericiModel;
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="block basic-buttons-rounded">
+            <div class="block-heading">
+                <div class="main-text h2">
+                    Əməliyatlar
+                </div>
+            </div>
+            <div class="block-content-outer" style="height:100px;">
+                <div class="block-content-inner">
+                    <div class="col-md-9">
+                        <button type="submit" style="margin-bottom:4px;" class="btn btn-primary rounded">
+                            <span class="glyphicon glyphicon-save"></span>
+                            Yadda Saxla
+                        </button>
+                        <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            Yeni Əlavə Moduna Keç
+                        </button>
+                        <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                            <span class="glyphicon glyphicon-refresh"></span>
+
+                        </button>
+                        <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                            <span class="glyphicon glyphicon-home"></span>
+
+                        </button>
+                        <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                            <span class="glyphicon glyphicon-book"></span>
+
+                        </button>
+                        <button type="button" class="btn btn-primary rounded">
+                            <span class="glyphicon glyphicon-folder-close"></span>
+                        </button>
+                        <input type="hidden" name="SUBID" value="@Model.SubscribeSUBID" />
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="form-control">Abonent:<span style="color:red;" class="GostericiAbonentSUBID">@Model.SubscribeSUBID</span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="block">
+            <div class="block-heading">
+                <div class="main-text h2">
+                    Yeni Göstərici Girişi
+                </div>
+            </div>
+            <div class="block-content-outer" style="height:400px;">
+                <div class="block-content-inner">
+                    @*InputWithButton*@
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="col-sm-5">Tarix</label>
+                            <div class="input-group col-sm-7" id="datetimepickerGostericiGunu">
+                                <input type="date" class="form-control" name="DDATE">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="col-sm-5">Təzyiq</label>
+                            <div class="input-group col-sm-7">
+                                <input type="text" class="form-control" name="FARE">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="col-sm-5">Meter Value(*)</label>
+                            <div class="input-group col-sm-7">
+                                <input type="text" class="form-control" name="METERVALUE">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="col-sm-5">PersonelID_SEQ(*)</label>
+                            <div class="input-group col-sm-7">
+                                <select id="input-demo-v" class="form-control" name="PERSONNEL_ID_SEQ">
+                                    <option>Seçim...</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="col-sm-4">Elektron Sayğac Göstəricisi</label>
+                            <div class="input-group col-sm-4">
+                                <input type="text" class="form-control" name="VERIFIED_CH">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="col-sm-5">Mövcud Göstəricilər</label>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="table-wrapper-scrool-y my-custom-scroolbar">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Tarix</th>
+                                        <th>Gün-Sayi</th>
+                                        <th>Meter Value</th>
+                                        <th>Tarif</th>
+                                        <th>Sərfiyyat</th>
+                                        <th>Effektiv Sərfiyyat</th>
+                                        <th>Elektron Sayğac Göstəricisi</th>
+                                        <th>Düzəliş Et</th>
+                                        <th>Sil</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var submeter in Model.Submeters)
+                                    {
+                                        <tr>
+                                            <td class="GETDDATE">@submeter.DDATE.ToShortDateString()</td>
+                                            <td class="GETR_METERVALUE">@submeter.R_METERVALUE</td>
+                                            <td class="GETMETERVALUE">@submeter.METERVALUE</td>
+                                            <td class="GETFARE">@submeter.FARE</td>
+                                            <td class="GETR_FARE">@submeter.R_FARE</td>
+                                            <td class="GETVAT_PERCENT">@submeter.VAT_PERCENT</td>
+                                            <td class="GETVERIFIED_CH">@submeter.VERIFIED_CH</td>
+                                            <td><a class="btn btn-primary btnUpdateReady"><i class="glyphicon glyphicon-pencil"></i></a></td>
+                                            <td><a class="btn btn-danger" asp-route="subcontrol_delete" asp-route-id="@submeter.METERVALUE" asp-route-SubId="@submeter.SUBID"><i class="glyphicon glyphicon-trash"></i></a></td>
+                                        </tr>
+                                    }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

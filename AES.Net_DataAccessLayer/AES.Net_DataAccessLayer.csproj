@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Concrete\EntityFramework\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AES.Net_CoreLayer\AES.Net_CoreLayer.csproj" />
+    <ProjectReference Include="..\AES.Net_DataTransactObject\AES.Net_DataTransactObject.csproj" />
+    <ProjectReference Include="..\AES.Net_Entities\AES.Net_Entities.csproj" />
+  </ItemGroup>
+
+</Project>

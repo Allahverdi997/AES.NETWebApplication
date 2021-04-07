@@ -1,0 +1,198 @@
+﻿
+@{
+    ViewData["Title"] = "GetAllPayments";
+}
+@model AbonentOdemeModel;
+
+@section breadcramb{
+    <li>
+        <a asp-controller="Abonentler" asp-action="Index">Abonentlər</a>
+    </li>
+}
+@section styles{
+    <link href="~/HTMLAdmin/assets/css/required/select2.min.css" rel="stylesheet" />
+    <link type="text/css" href="~/HTMLAdmin/assets/css/demo-files/form-extras.css" rel="stylesheet" />
+
+    <link type="text/css" href="~/HTMLAdmin/assets/css/optional/switchery.min.css" rel="stylesheet" />
+    <link type="text/css" href="~/HTMLAdmin/assets/css/optional/powerange.min.css" rel="stylesheet" />
+    <link type="text/css" href="~/HTMLAdmin/assets/css/optional/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+    <link type="text/css" href="~/HTMLAdmin/assets/css/optional/bootstrap-tagsinput.min.css" rel="stylesheet" />
+    <link type="text/css" href="~/HTMLAdmin/assets/css/optional/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link type="text/css" href="~/HTMLAdmin/assets/css/optional/bootstrap-multiselect.min.css" rel="stylesheet" />
+
+    <style>
+        .my-custom-scroolbar {
+            position: relative;
+            height: 200px;
+            overflow: auto;
+        }
+
+        .table-wrapper-scrool-y {
+            display: block;
+        }
+    </style>
+}
+
+<form role="form" asp-action="AddPayment" asp-controller="Abonentler" class="form-horizontal">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="block basic-buttons-rounded">
+                <div class="block-heading">
+                    <div class="main-text h2">
+                        Əməliyyatlar
+                    </div>
+                    <div class="block-controls">
+                        <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+                    </div>
+                </div>
+                <div class="block-content-outer" style="height:100px;">
+                    <div class="block-content-inner">
+                        <div class="col-md-9">
+                            <button type="submit" style="margin-bottom:4px;" class="btn btn-primary rounded">
+                                <span class="glyphicon glyphicon-save"></span>
+                                Yadda Saxla
+                            </button>
+                            <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                Yeni Əlave Moduna Keç
+                            </button>
+                            <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-refresh"></span>
+
+                            </button>
+                            <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-folder-open"></span>
+
+                            </button>
+                            <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-book"></span>
+
+                            </button>
+                            <button type="button" class="btn btn-primary rounded">
+                                <span class="glyphicon glyphicon-folder-close"></span>
+                            </button>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-control">Abonent:<span style="color:red;"><a asp-controller="Abonentler" asp-action="GETSUBSCRIBERBySUBID" asp-route-id="@Model.Subscriber.SUBID">@Model.Subscriber.SUBID</a></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="block">
+                <div class="block-heading">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-control">Ödənişler</label>
+                        </div>
+                    </div>
+                    <div class="main-text h2">
+                        Yeni Ödəniş Girişi
+                    </div>
+                    <div class="block-controls">
+                        <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+                    </div>
+                </div>
+                <div class="block-content-outer" style="height:700px;">
+                    <div class="block-content-inner">
+                        @*InputWithButton*@
+                        <div class="col-md-4">
+                            <div class="form-group form-horizontal">
+                                <label for="exampleInputEmail1" class="col-sm-4">Tarix</label>
+                                <div class="input-group date col-sm-8" id="datetimepickerBitmeTarixi">
+                                    <input type="date" class="form-control" autocomplete="off" name="DDATE">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1" class="col-sm-4">Məbləğ</label>
+                                <div class="input-group col-sm-8">
+                                    <input type="text" class="form-control" name="CHARGE">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1" class="col-sm-5">Ödəniş Forması</label>
+                                <div class="input-group col-sm-7">
+                                    <select id="input-demo-v" class="form-control" name="FORM_OF_PAYMENT">
+                                        <option>Seçim...</option>
+                                        @foreach (var payment_ in Model.Payment_Descriptions)
+                                        {
+                                            <option value="@payment_.ID">@payment_.NAME</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1" class="col-sm-5">Mövcud Ödənişlər</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="table-wrapper-scrool-y my-custom-scroolbar">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Tarix</th>
+                                            <th>Məbləğ</th>
+                                            <th>Ödəniş Forması</th>
+                                            <th>Sil</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{ decimal sum = 0;
+                                            int i = 0;}
+                                        @foreach (var payment in Model.Payments)
+                                        {
+                                        <tr>
+                                            @{ sum += payment.CHARGE;
+                                                string id = payment.SUBID + "a" + Convert.ToString(payment.DDATE.ToString("yyyy-MM-dd")) + "a" + payment.CHARGE.ToString();
+                                                string editID = payment.SUBID + "a" + Convert.ToString(payment.DDATE.ToString("yyyy-MM-dd")) + "a" + payment.CHARGE.ToString() + "a" + @payment.FORM_OF_PAYMENT;
+                                            }
+                                            <td><a asp-controller="Abonentler" asp-action="GetPayment" asp-route-id="@editID">@payment.DDATE.ToString("yyyy-MM-dd")</a></td>
+                                            <td><a asp-controller="Abonentler" asp-action="GetPayment" asp-route-id="@editID">@payment.CHARGE</a></td>
+                                            @foreach (var description in Model.Payment_Descriptions)
+                                            {
+                                                if (payment.FORM_OF_PAYMENT == description.ID.ToString())
+                                                {
+                                                    <td><a asp-controller="Abonentler" asp-action="GetPayment" asp-route-id="@editID">@description.NAME</a></td>
+                                                }
+                                            }
+
+                                            <td><a class="btn btn-primary" asp-controller="Abonentler" asp-action="DeletePayment" asp-route-id="@id"><i class="glyphicon glyphicon-trash"></i></a></td>
+                                        </tr>
+                                        }
+                                        <tr>
+                                            <td colspan="4">TOPLAMLAR</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td colspan="3">@sum</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <input type="hidden" value="@Model.Subscriber.SUBID" name="SUBID" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section scripts{ 
+    <script type="text/javascript" src="~/HTMLAdmin/assets/js/required/jquery-1.11.1.min.js"></script>
+
+    <script type="text/javascript">
+
+    </script>
+}

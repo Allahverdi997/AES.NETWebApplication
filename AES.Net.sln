@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30517.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AES.Net_CoreMVC_UI", "AES.Net_CoreMVC_UI\AES.Net_CoreMVC_UI.csproj", "{5963AA97-FA18-4A8C-8B7B-0152E90F1B2F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AES.Net_Entities", "AES.Net_Entities\AES.Net_Entities.csproj", "{7DCF7B5A-726E-40B0-8BE2-5D57D0ACD031}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AES.Net_DataAccessLayer", "AES.Net_DataAccessLayer\AES.Net_DataAccessLayer.csproj", "{1E5E4958-E8A0-4C04-9A82-54FCD2FF33D0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AES.Net_CoreLayer", "AES.Net_CoreLayer\AES.Net_CoreLayer.csproj", "{D35FFECD-3870-4822-9892-515331499200}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AES.Net_BusinessLogicalLayer", "AES.Net_BusinessLogicalLayer\AES.Net_BusinessLogicalLayer.csproj", "{27DD78C3-EB92-42B6-B53E-30FC6CEC5137}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AES.Net_DataTransactObject", "AES.Net_DataTransactObject\AES.Net_DataTransactObject.csproj", "{05770400-4913-4F43-BDCE-4F9CBBABB6BA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5963AA97-FA18-4A8C-8B7B-0152E90F1B2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5963AA97-FA18-4A8C-8B7B-0152E90F1B2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5963AA97-FA18-4A8C-8B7B-0152E90F1B2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5963AA97-FA18-4A8C-8B7B-0152E90F1B2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DCF7B5A-726E-40B0-8BE2-5D57D0ACD031}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DCF7B5A-726E-40B0-8BE2-5D57D0ACD031}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DCF7B5A-726E-40B0-8BE2-5D57D0ACD031}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DCF7B5A-726E-40B0-8BE2-5D57D0ACD031}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E5E4958-E8A0-4C04-9A82-54FCD2FF33D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E5E4958-E8A0-4C04-9A82-54FCD2FF33D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E5E4958-E8A0-4C04-9A82-54FCD2FF33D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E5E4958-E8A0-4C04-9A82-54FCD2FF33D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D35FFECD-3870-4822-9892-515331499200}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D35FFECD-3870-4822-9892-515331499200}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D35FFECD-3870-4822-9892-515331499200}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D35FFECD-3870-4822-9892-515331499200}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27DD78C3-EB92-42B6-B53E-30FC6CEC5137}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27DD78C3-EB92-42B6-B53E-30FC6CEC5137}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27DD78C3-EB92-42B6-B53E-30FC6CEC5137}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27DD78C3-EB92-42B6-B53E-30FC6CEC5137}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05770400-4913-4F43-BDCE-4F9CBBABB6BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05770400-4913-4F43-BDCE-4F9CBBABB6BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05770400-4913-4F43-BDCE-4F9CBBABB6BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05770400-4913-4F43-BDCE-4F9CBBABB6BA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BCA10D37-2329-42FE-BBC9-6EF1AD152A40}
+	EndGlobalSection
+EndGlobal

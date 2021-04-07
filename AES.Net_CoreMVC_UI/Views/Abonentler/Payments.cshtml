@@ -1,0 +1,165 @@
+﻿
+@{
+    ViewData["Title"] = "Payments";
+}
+
+@model AbonentOdemeModel;
+
+@section breadcramb{
+    <li>
+        <a asp-controller="Abonent" asp-action="Index">Abonentler</a>
+    </li>
+    <li>
+        <a href="#">Odemeler</a>
+    </li>
+}
+<form role="form" class="form-horizontal">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="block basic-buttons-rounded">
+                <div class="block-heading">
+                    <div class="main-text h2">
+                        Emeliyyatlar
+                    </div>
+                    <div class="block-controls">
+                        <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+                    </div>
+                </div>
+                <div class="block-content-outer" style="height:100px;">
+                    <div class="block-content-inner">
+                        <div class="col-md-9">
+                            <button type="button" asp-action="Index" asp-controller="Abonent" style="margin-bottom:4px;" class="btn btn-primary rounded">
+                                <span class="glyphicon glyphicon-save"></span>
+                                Yadda Saxla
+                            </button>
+                            <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                Yeni Elave Moduna Kec
+                            </button>
+                            <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-trash"></span>
+                                Sil
+                            </button>
+                            <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-refresh"></span>
+
+                            </button>
+                            <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-folder-open"></span>
+
+                            </button>
+                            <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-book"></span>
+
+                            </button>
+                            <button type="button" class="btn btn-primary rounded">
+                                <span class="glyphicon glyphicon-folder-close"></span>
+                            </button>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-control">Abonent:<span style="color:red;">@Model.Subscriber.SUBID</span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="block">
+                <div class="block-heading">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-control">Odenisler</label>
+                        </div>
+                    </div>
+                    <div class="main-text h2">
+                        Yeni Odenis Girisi
+                    </div>
+                    <div class="block-controls">
+                        <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+                    </div>
+                </div>
+                <div class="block-content-outer" style="height:700px;">
+                    <div class="block-content-inner">
+                        @*InputWithButton*@
+                        <div class="col-md-6">
+                            <div class="form-group form-horizontal">
+                                <label for="exampleInputEmail1" class="col-sm-3">Tarix</label>
+                                <div class="input-group date col-sm-9" id="datetimepickerBitmeTarixi">
+                                    <input type="date" class="form-control datepicker bootstrap-datetimepicker-widget" autocomplete="off" name="ENDDATE">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1" class="col-sm-3">Charge</label>
+                                <div class="input-group col-sm-9">
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1" class="col-sm-3">Odenis Tipi Kodu</label>
+                                <div class="input-group col-sm-9">
+                                    <select id="input-demo-v" class="form-control" name="PERSONAL_ID_SEQ">
+                                        <option>Seçim...</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1" class="col-sm-5">Movcud Odenisler</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="table-wrapper-scrool-y my-custom-scroolbar">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>TARIX</th>
+                                            <th>CHARGE</th>
+                                            <th>PAYMENT_DESCRIPTION</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @*@foreach (var subscriberSearch in Model.Payments)
+                                            {*@
+                                        <tr>
+                                            <td>TARIX-1</td>
+                                            <td>CHARGE-1</td>
+                                            <td>DESCRIPTION-1</td>
+                                        </tr>
+                                        @*}*@
+                                        <tr>
+                                            <td colspan="3">TOPLAMLAR</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td colspan="3">@Model.SumPayment</td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

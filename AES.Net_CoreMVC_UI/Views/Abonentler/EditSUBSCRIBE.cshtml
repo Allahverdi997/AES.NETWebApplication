@@ -1,0 +1,960 @@
+﻿
+@{
+    ViewData["Title"] = "EditSUBSCRIBE";
+}
+
+@model AbonentIndexModel;
+
+@section breadcramb{
+    <li>
+        <a asp-controller="Abonentler" asp-action="Index">Abonentlər</a>
+    </li>
+}
+@section styles{
+    <link href="~/HTMLAdmin/assets/css/required/select2.min.css" rel="stylesheet" />
+
+    <style>
+        .my-custom-scroolbar {
+            position: relative;
+            height: 200px;
+            overflow: auto;
+        }
+
+        .table-wrapper-scrool-y {
+            display: block;
+        }
+    </style>
+}
+<br />
+<br />
+<br />
+<div class="col-md-12">
+    <div class="block basic-buttons-rounded">
+        <div class="block-heading">
+            <div class="main-text h2">
+                Əməliyatlar
+            </div>
+            <div class="block-controls">
+                <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+            </div>
+        </div>
+        <div class="block-content-outer">
+            <div class="block-content-inner">
+                <a type="button" asp-action="Index" asp-controller="Abonent" class="btn btn-primary rounded">
+                    <span class="glyphicon glyphicon-folder-open"></span>
+                    Qovluq
+                </a>
+                <a type="button" class="btn btn-primary rounded">
+                    <span class="glyphicon glyphicon-wrench"></span>
+                    Əməliyyat
+                </a>
+                <a type="button" class="btn btn-primary rounded">
+                    <span class="glyphicon glyphicon-wrench"></span>
+                    Digər Əməliyatlar
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form role="form" asp-action="AddSubscriber" asp-controller="Abonentler" class="form-horizontal">
+    <div class="GETSUBSCRIBE">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="block">
+                    <div class="block-heading">
+                        <div class="main-text h2">
+                            Əsas Axtarış
+                        </div>
+                        <div class="block-controls">
+                            <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+                        </div>
+                    </div>
+                    <div class="block-content-outer" style="height:550px;">
+                        <div class="block-content-inner">
+                            @*InputWithButton*@
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1" class="col-sm-3">SubjectID(*)</label>
+                                    <div class="input-group col-sm-9">
+                                        <select id="input-demo-v" name="RayonID" class="form-control SubjectIDSELECT">
+                                            @foreach (var subject in Model.Subjects)
+                                            {
+                                                if (subject.SUBJECTID == ViewBag.seherID)
+                                                {
+                                                    <option selected value="@subject.SUBJECTID">@subject.NAME</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@subject.SUBJECTID">@subject.NAME</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1" class="col-sm-3">SubID(*)</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control col-sm-9 SUBIDTEXTBOX" value="@Model.Subscriber.SUBID" name="SUBID">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-warning SUBIDSEARCHBUTTON" type="button"><span class="glyphicon glyphicon-zoom-in"></span>Axtarış</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1" class="col-sm-3">MatrixID(*)</label>
+                                    <div class="input-group col-sm-9 MATRIXIDSELECTDIV">
+                                        <select id="input-demo-v" name="MatrixID" class="form-control SELECTMATRIXID">
+                                            @foreach (var matrix in Model.Matrices)
+                                            {
+                                                if (matrix.MATRIXID == ViewBag.matrixID)
+                                                {
+                                                    <option selected value="@matrix.MATRIXID">@matrix.NAME</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@matrix.MATRIXID">@matrix.NAME</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            @*Input*@
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1" class="col-sm-3">Köhnə Kod</label>
+                                    <div class="input-group col-sm-9">
+                                        <input type="text" class="form-control" name="CODE_1" value="@Model.Subscriber.CODE_1">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1" class="col-sm-3">KÜÇƏ(*)</label>
+                                    <div class="input-group col-sm-9">
+                                        <select id="input-demo-v" class="form-control SELECTKÜÇƏ" name="KUCE">
+                                            @foreach (var street in Model.Streets)
+                                            {
+                                                if (street.STREETID == ViewBag.kuceID)
+                                                {
+                                                    <option selected value="@street.STREETID">@street.NAME</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@street.STREETID">@street.NAME</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1" class="col-sm-3">Ad(*)</label>
+                                    <div class="input-group col-sm-9">
+                                        <input type="text" class="form-control" name="NAME" value="@Model.Subscriber.NAME">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1" class="col-sm-3">BINA/EV(*)</label>
+                                    <div class="input-group col-sm-9">
+                                        <select id="input-demo-v" class="form-control" name="BinaID">
+                                            <option value="0010">Bina 1</option>
+                                            <option value="0020">Bina 2</option>
+                                            <option value="0030">Bina 3</option>
+                                            <option value="0040">Bina 4</option>
+                                            <option value="0050">Bina 5</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1" class="col-sm-3">Soyad</label>
+                                    <div class="input-group col-sm-9">
+                                        <input type="text" class="form-control" name="SURNAME" value="@Model.Subscriber.SURNAME">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1" class="col-sm-3">Mənzil</label>
+                                    <div class="input-group col-sm-9">
+                                        <select id="input-demo-v" class="form-control" name="MenzilID">
+                                            <option value="0001">Menzil 1</option>
+                                            <option value="0002">Menzil 2</option>
+                                            <option value="0003">Menzil 3</option>
+                                            <option value="0004">Menzil 4</option>
+                                            <option value="0005">Menzil 5</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1" class="col-sm-3">Ata Adı</label>
+                                    <div class="input-group col-sm-9">
+                                        <input type="text" class="form-control" name="MIDDLENAME" value="@Model.Subscriber.MIDDLENAME">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1" class="col-sm-3">Ailə Tərkibi(Say\*)</label>
+                                    <div class="input-group col-sm-9">
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1" class="col-sm-3">Status</label>
+                                    <div class="input-group col-sm-9">
+                                        <select id="input-demo-v" class="form-control SELECT" name="STATUS">
+                                            <option>Seçim...</option>
+                                            <option value="Aktiv">Aktiv</option>
+                                            <option value="Aktiv Deyil">Aktiv Deyil</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1" class="col-sm-3">Odəniş İcazəsi</label>
+                                    <div class="input-group col-sm-9">
+                                        <select id="input-demo-v" class="form-control SELECT" name="ACCEPT_PAYMENTS">
+                                            <option value="Bəli">Odəniş Qəbul Et</option>
+                                            <option value="Xeyir">Odəniş Qəbul Etmə</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1" class="col-sm-4">Göstərici Günü</label>
+                                    <div class="input-group col-sm-8" id="datetimepickerGostericiGunu">
+                                        <input type="date" class="form-control" name="REGDATE" value="@Model.Subscriber.REGDATE">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="text" value="CURRENT DEBIT" style="text-emphasis-color:red;" disabled class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            </br>
+                            </br>
+                            </br>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1" class="col-sm-2">Ünvan</label>
+                                    <div class="input-group col-sm-9">
+                                        <textarea class="form-control" rows="2" id="input-demo-h"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="block">
+                    <div class="block-content-outer" style="height:500px;">
+                        <div class="block-content-inner">
+                            <ul id="default-tabs-justified" class="nav nav-tabs nav-justified">
+                                <li class="active"><a href="#default-tabs-justified-home" data-toggle="tab">Əlavə Məlumatlar</a></li>
+                                <li><a href="#default-tabs-justified-profile" data-toggle="tab">Tarif və Sahə Məlumatları</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="default-tabs-justified-home" class="tab-pane active">
+                                    <div class="col-md-6">
+                                        <div class="form-group form-horizontal">
+                                            <label for="exampleInputEmail1" class="col-sm-3">Telefon Nömrəsi</label>
+                                            <div class="input-group col-sm-9">
+                                                <input type="tel" class="form-control" autocomplete="off" name="CONTACT" value="@Model.Subscriber.CONTACT">
+                                                <span class="input-group-addon input-group-icon">
+                                                    <span class="glyphicon glyphicon-phone"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group form-horizontal">
+                                            <label for="exampleInputEmail1" class="col-sm-3">Qeydiyat Tarixi</label>
+                                            <div class="input-group col-sm-9" id="datetimepickerQeydiyyatTarixi">
+                                                <input type="date" class="form-control datepicker bootstrap-datetimepicker-widget" name="REGDATE" value="@Model.Subscriber.REGDATE">
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1" class="col-sm-3">Müqavilə Nömrəsi</label>
+                                            <div class="input-group col-sm-9">
+                                                <input type="text" class="form-control" name="CONTRACT_NO" value="@Model.Subscriber.CONTRACT_NO">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group form-horizontal">
+                                            <label for="exampleInputEmail1" class="col-sm-3">Bitmə Tarixi</label>
+                                            <div class="input-group date col-sm-9" id="datetimepickerBitmeTarixi">
+                                                <input type="date" class="form-control datepicker bootstrap-datetimepicker-widget" autocomplete="off" name="ENDDATE" value="@Model.Subscriber.ENDDATE">
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1" class="col-sm-6">S/V seriya nömrəsi</label>
+                                            <div class="input-group col-sm-6">
+                                                <input type="tel" class="form-control icon-telephone" name="PSPT_SER" value="@Model.Subscriber.PSPT_SER">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input type="tel" class="form-control" name="PSPT_NO" value="@Model.Subscriber.PSPT_NO">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1" class="col-sm-3">Otaq Sayı</label>
+                                            <div class="input-group col-sm-9">
+                                                <input type="text" class="form-control icon-telephone">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group form-horizontal">
+                                            <label for="exampleInputEmail1" class="col-sm-3">S/V-nin Tarixi</label>
+                                            <div class="input-group col-sm-9" id="datetimepickerSVninTarixi">
+                                                <input type="date" class="form-control" name="PSPT_DATE" value="@Model.Subscriber.PSPT_DATE">
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1" class="col-sm-9">Normativ Hesabat</label>
+                                            <div class="input-group col-sm-3">
+                                                @if (Model.Subscriber.NO_METER_CH.Contains("on"))
+                                                {
+                                                    <input type="checkbox" checked class="form-control" name="NO_METER_CH">
+                                                }
+                                                else
+                                                {
+                                                    <input type="checkbox" class="form-control" name="NO_METER_CH">
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1" class="col-sm-6">Normativ Hesabat Dəyəri</label>
+                                            <div class="input-group col-sm-6">
+                                                <input type="text" class="form-control" name="NO_METER_KWTH" value="@Model.Subscriber.NO_METER_KWTH">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1" class="col-sm-3">S/V-nin Qeydləri</label>
+                                            <div class="input-group col-sm-9">
+                                                <textarea class="form-control" rows="2" id="input-demo-h" name="PSPT_NOTE"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1" class="col-sm-3">Əlavə Qeydlər</label>
+                                            <div class="input-group col-sm-9">
+                                                <textarea class="form-control" rows="2" id="input-demo-h"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1" class="col-sm-3">Personel_ID_SEQ</label>
+                                            <div class="input-group col-sm-9">
+                                                <select id="input-demo-v" class="form-control" name="PERSONAL_ID_SEQ">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1" class="col-sm-3">Qəsəbə(*)</label>
+                                            <div class="input-group col-sm-9">
+                                                <select id="input-demo-v" class="form-control">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="default-tabs-justified-profile" class="tab-pane">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1" class="col-sm-3">Tarif</label>
+                                            <div class="input-group col-sm-9">
+                                                <input type="tel" class="form-control icon-telephone">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1" class="col-sm-3">Tarif</label>
+                                            <div class="input-group col-sm-9">
+                                                <input type="text" class="form-control icon-telephone">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1" class="col-sm-3">ƏDV</label>
+                                            <div class="input-group col-sm-9">
+                                                <input type="tel" class="form-control icon-telephone">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1" class="col-sm-3">Elektron Tarif</label>
+                                            <div class="input-group col-sm-9">
+                                                <input type="text" class="form-control icon-telephone">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1" class="col-sm-3">Mənzil Tipi</label>
+                                            <div class="input-group col-sm-9">
+                                                <select id="input-demo-v" class="form-control" name="BUILDING_ID_SEQ">
+                                                    <option value="1">Bina Evi</option>
+                                                    <option value="2">Heyet Evi</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1" class="col-sm-3">Sahə(*)</label>
+                                            <div class="input-group col-sm-9">
+                                                <select id="input-demo-v" class="form-control">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1" class="col-sm-3">Qəsəbə(*)</label>
+                                            <div class="input-group col-sm-9">
+                                                <select id="input-demo-v" class="form-control">
+                                                    <option value="1">1</option>
+                                                    <option value="1">2</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="block basic-buttons-rounded">
+                    <div class="block-heading">
+                        <div class="main-text h2">
+                            Əməliyatlar
+                        </div>
+                        <div class="block-controls">
+                            <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+                        </div>
+                    </div>
+                    <div class="block-content-outer">
+                        <div class="block-content-inner">
+                            <button type="submit" style="margin-bottom:4px;" class="btn btn-primary rounded">
+                                <span class="glyphicon glyphicon-save"></span>
+                                Yadda Saxla
+                            </button>
+                            <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                Yeni Əlave Moduna Keç
+                            </button>
+                            <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-search"></span>
+                                Abonent Axtarışı
+                            </button>
+                            <button type="button" asp-route="abonent_delete" asp-route-id="@Model.Subscriber.SUBID" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-home"></span>
+                                Sil
+                            </button>
+                            <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-home"></span>
+
+                            </button>
+                            <button type="button" class="btn btn-primary rounded">
+                                <span class="glyphicon glyphicon-log-in"></span>
+                                Log
+                            </button>
+                            <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-home"></span>
+                                Saldo
+                            </button>
+                            <a type="button" asp-route="Gostericiler" asp-route-abonentID="111234524" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                Göstəricilər
+                            </a>
+                            <a type="button" asp-route="Odemeler" asp-route-abonentID="111234524" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-usd"></span>
+                                Ödəmələr
+                            </a>
+                            <a type="button" asp-route="SaygacDeyisiklikleri" asp-route-abonentID="111234524" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-edit"></span>
+                                Sayğac Dəyişiklikləri
+                            </a>
+                            <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-folder-close"></span>
+                                Aktlar
+                            </button>
+                            <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-floppy-disk"></span>
+                                Tariflər
+                            </button>
+                            <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-chevron-up"></span>
+                                Üst Abonentlər
+                            </button>
+                            <button type="button" class="btn btn-primary rounded" style="margin-bottom:4px;">
+                                <span class="glyphicon glyphicon-folder-close"></span>
+                                Arayışlar
+                            </button>
+                            <button type="button" class="btn btn-primary rounded">
+                                <span class="glyphicon glyphicon-home"></span>
+                                Mənzil Məlumatları
+                            </button>
+                            <button type="button" class="btn btn-primary rounded">
+                                <span class="glyphicon glyphicon-star"></span>
+                                Imtiyazlar
+                            </button>
+                            <button type="button" class="btn btn-primary rounded">
+                                <span class="glyphicon glyphicon-inbox"></span>
+                                Tarixçə
+                            </button>
+                            <button type="button" class="btn btn-primary rounded">
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+                                Alt Abonentlər
+                            </button>
+                            <button type="button" class="btn btn-primary rounded">
+                                <span class="glyphicon glyphicon-home"></span>
+                                Güzəştlər
+                            </button>
+                            <input type="hidden" class="ModalAC " data-toggle="modal" data-target="#ABONENTINSECILMESI-modal" />
+                            @*<button class="btn btn-warning ModalAC" type="button" data-toggle="modal" data-target="#ABONENTINSECILMESI-modal"></button>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</form>
+
+@*Modals*@
+@section body{
+    <div class="modal fade ABONENTINSECILMESI-modal" id="ABONENTINSECILMESI-modal" tabindex="-1" role="dialog" aria-labelledby="ABONENTINSECILMESI-modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="height:1200px;width:900px;" data-border-top="multi">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="ABONENTINSECILMESI-modal-label">Abonentin Seçilməsi</h4>
+                </div>
+                <div class="modal-body" style="height:1200px;width:900px;">
+                    <div class="col-md-12">
+                        <label class="form-control">Əsas Axtarış</label>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="col-sm-3">Şəhər</label>
+                            <div class="input-group col-sm-9">
+                                <select id="input-demo-v" class="form-control SeherSELECTMODAL">
+                                    @foreach (var subject in Model.Subjects)
+                                    {
+                                        <option value="@subject.SUBJECTID">@subject.NAME</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="col-sm-3">KÜÇƏ</label>
+                            <div class="input-group col-sm-9">
+                                <select id="input-demo-v" class="form-control SELECTKÜÇƏMODAL">
+                                    <option selected>Xahis olunur <span class="highlight-color-red">Matrix</span> secin</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-warning" type="button" data-toggle="modal" data-target="#ABONENTINSECILMESI-modal"><span class="glyphicon glyphicon-zoom-in"></span>Axtarış</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="col-sm-3">Rayon</label>
+                            <div class="input-group col-sm-9">
+                                <select id="input-demo-v" class="form-control RayonSELECTModal">
+                                    <option selected>Xahis olunur Şəhər secin</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="col-sm-3">Bina/Ev</label>
+                            <div class="input-group col-sm-9">
+                                <select id="input-demo-v" class="form-control">
+                                    <option value="0010">Bina 1</option>
+                                    <option value="0020">Bina 2</option>
+                                    <option value="0030">Bina 3</option>
+                                    <option value="0040">Bina 4</option>
+                                    <option value="0050">Bina 5</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="col-sm-3">Menzil</label>
+                            <div class="input-group col-sm-9">
+                                <select id="input-demo-v" class="form-control">
+                                    <option value="0001">Menzil 1</option>
+                                    <option value="0002">Menzil 2</option>
+                                    <option value="0003">Menzil 3</option>
+                                    <option value="0004">Menzil 4</option>
+                                    <option value="0005">Menzil 5</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group vertical">
+                            <label for="exampleInputEmail1" class="col-sm-4">SubID</label>
+                            <div class="input-group col-sm-8">
+                                <input class="form-group" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group vertical">
+                            <label for="exampleInputEmail1" class="col-sm-4">Soyad</label>
+                            <div class="input-group col-sm-8">
+                                <input class="form-group" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group vertical">
+                            <label for="exampleInputEmail1" class="col-sm-4">Ad</label>
+                            <div class="input-group col-sm-8">
+                                <input class="form-group" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group vertical">
+                            <label for="exampleInputEmail1" class="col-sm-4">Ata</label>
+                            <div class="input-group col-sm-8">
+                                <input class="form-group" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group vertical">
+                            <label for="exampleInputEmail1" class="col-sm-4">Köhne</label>
+                            <div class="input-group col-sm-8">
+                                <input class="form-group" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group vertical">
+                            <label for="exampleInputEmail1" class="col-sm-8">Əlaqə</label>
+                            <div class="input-group col-sm-4">
+                                <input class="form-group" style="width:100px;" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-control">Digər Axtariş</label>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="col-sm-3">Şəhər</label>
+                            <div class="input-group col-sm-9">
+                                <select id="input-demo-v" class="form-control SeherSELECTMODAL2">
+                                    @foreach (var subject in Model.Subjects)
+                                    {
+                                        <option value="@subject.SUBJECTID">@subject.NAME</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="col-sm-3">KÜÇƏ</label>
+                            <div class="input-group col-sm-9">
+                                <select id="input-demo-v" class="form-control SELECTKÜÇƏMODAL2">
+                                    <option selected>Xahis olunur <span class="highlight-color-red">Matrix</span> secin</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="input-group-btn">
+                            <button class="btn btn-warning" type="button" data-toggle="modal" data-target="#ABONENTINSECILMESI-modal"><span class="glyphicon glyphicon-zoom-in"></span>Axtarış</button>
+                        </span>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-control">Nəticə</label>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="table-wrapper-scrool-y my-custom-scroolbar">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>SubID</th>
+                                        <th>Ad</th>
+                                        <th>Soyad</th>
+                                        <th>Ata Adı</th>
+                                        <th>Köhne Kod</th>
+                                        <th>Əlaqə</th>
+                                        <th>Şəhər ID</th>
+                                        <th>Şəhər Adı</th>
+                                        <th>Matrix ID</th>
+                                        <th>MATRIX</th>
+                                        <th>Küçə İD</th>
+                                        <th>Küçə</th>
+                                        <th>Bina İD</th>
+                                        <th>Mənzil İD</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var subscriberSearch in Model.SubscriberSearches)
+                                    {
+                                        <tr>
+                                            <th>@subscriberSearch.SUBID</th>
+                                            <td>@subscriberSearch.NAME</td>
+                                            <td>@subscriberSearch.SURNAME</td>
+                                            <td>@subscriberSearch.MIDDLENAME</td>
+                                            <td>@subscriberSearch.CODE_1</td>
+                                            <td>@subscriberSearch.CONTACT</td>
+                                            <td>@subscriberSearch.RayonID</td>
+                                            <td>@subscriberSearch.SUBJECTNAME</td>
+                                            <td>@subscriberSearch.MatrixID</td>
+                                            <td>@subscriberSearch.MATRIXNAME</td>
+                                            <td>@subscriberSearch.KUCE</td>
+                                            <td>@subscriberSearch.STREETNAME</td>
+                                            <td>@subscriberSearch.Bina</td>
+                                            <td>@subscriberSearch.Menzil</td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">REDDET</button>
+                        <button type="button" class="btn btn-success SUBJECTIDOK">OK</button>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-control">AXTARIS TAMAMLANDI</label>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+}
+
+@section scripts{
+    <script type="text/javascript" src="~/HTMLAdmin/assets/js/required/jquery-1.11.1.min.js"></script>
+    <script src="~/HTMLAdmin/assets/js/select2.min.js"></script>
+    <script type="text/javascript">
+
+         $(".SubjectIDSELECT").change(function () {
+             var id = $(".SubjectIDSELECT").val();
+             alert(id);
+             var selectData = $(".SELECTMATRIXID");
+             if (id != null) {
+                 alert(id);
+                 $.ajax({
+                     type: "GET",
+                     url: "/Abonentler/SendOptionsWithID/" + id,
+                     dataType: "html",
+                     success: function (data) {
+                         if (data != null) {
+                             selectData.html(data);
+                             alert(data);
+                         }
+                     }
+                 });
+             }
+         });
+
+         $(".SELECTMATRIXID").change(function () {
+             var id = $(".SELECTMATRIXID").val();
+             alert(id);
+             var selectData = $(".SELECTKÜÇƏ");
+             if (id != null) {
+                 alert(id);
+                 $.ajax({
+                     type: "GET",
+                     url: "/Abonentler/GETSTREETS/" + id,
+                     dataType: "html",
+                     success: function (data) {
+                         if (data != null) {
+                             selectData.html(data);
+                             alert(data);
+                         }
+                     }
+                 });
+             }
+         });
+
+         $(".SeherSELECTMODAL").change(function () {
+             var id = $(".SeherSELECTMODAL").val();
+             alert(id);
+             var selectData = $(".RayonSELECTModal");
+             if (id != null) {
+                 alert(id);
+                 $.ajax({
+                     type: "GET",
+                     url: "/Abonentler/SendOptionsWithID/" + id,
+                     dataType: "html",
+                     success: function (data) {
+                         if (data != null) {
+                             selectData.html(data);
+                             alert(data);
+                         }
+                     }
+                 });
+             }
+         });
+
+         $(".SeherSELECTMODAL2").change(function () {
+             var id = $(".SeherSELECTMODAL2").val();
+             alert(id);
+             var selectData = $(".SELECTKÜÇƏMODAL2");
+             if (id != null) {
+                 alert(id);
+                 $.ajax({
+                     type: "GET",
+                     url: "/Abonentler/GETSTREETSWithSubjectİD/" + id,
+                     dataType: "html",
+                     success: function (data) {
+                         if (data != null) {
+                             selectData.html(data);
+                             alert(data);
+                         }
+                     }
+                 });
+             }
+         });
+
+         $(".RayonSELECTModal").change(function () {
+             var id = $(".RayonSELECTModal").val();
+             alert(id);
+             var selectData = $(".SELECTKÜÇƏMODAL");
+             if (id != null) {
+                 alert(id);
+                 $.ajax({
+                     type: "GET",
+                     url: "/Abonentler/GETSTREETS/" + id,
+                     dataType: "html",
+                     success: function (data) {
+                         if (data != null) {
+                             selectData.html(data);
+                             alert(data);
+                         }
+                     }
+                 });
+             }
+         });
+
+         $(".SUBIDSEARCHBUTTON").click(function () {
+             var id = $(".SUBIDTEXTBOX").val();
+             var divData = $(".GETSUBSCRIBE");
+             if (id == "") {
+                 alert("Bosdur");
+                 $(".ModalAC").click();
+             }
+             else {
+                 if (id.length != 15) {
+                     alert(id);
+                     alert("Xahis olunur duzgun SUBID Girin");
+                 }
+                 else {
+                     alert(id);
+                     $.ajax({
+                         type: "GET",
+                         url: "/Abonentler/GETSUBSCRIBE/" + id,
+                         dataType: "html",
+                         success: function (data) {
+                             if (data != null) {
+                                 divData.html(data);
+                                 alert(data);
+                             }
+                         }
+                     });
+                 }
+             }
+
+         })
+
+    </script>
+}
+
+

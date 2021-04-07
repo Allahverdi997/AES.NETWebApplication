@@ -1,0 +1,10 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model AbonentIndexModel;
+
+<option>Seçim...</option>
+@foreach (var matrix in Model.Matrices)
+{
+    <option value="@matrix.MATRIXID">@matrix.NAME</option>
+}

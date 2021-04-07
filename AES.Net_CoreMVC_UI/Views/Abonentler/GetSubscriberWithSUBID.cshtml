@@ -1,0 +1,129 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model AbonentIndexModel;
+
+
+<div class="col-md-2">
+    <div class="form-group vertical">
+        <label for="exampleInputEmail1" class="col-sm-4">SubID</label>
+        <div class="input-group col-sm-8">
+            <input class="form-group SUBIDMODAL" type="text" value="@Model.Subscriber.SUBID" />
+        </div>
+    </div>
+</div>
+<div class="col-md-2">
+    <div class="form-group vertical">
+        <label for="exampleInputEmail1" class="col-sm-4">Soyad</label>
+        <div class="input-group col-sm-8">
+            <input class="form-group SOYADMODAL" type="text" value="@Model.Subscriber.SURNAME"/>
+        </div>
+    </div>
+</div>
+<div class="col-md-2">
+    <div class="form-group vertical">
+        <label for="exampleInputEmail1" class="col-sm-4">Ad</label>
+        <div class="input-group col-sm-8">
+            <input class="form-group ADMODAL" type="text" value="@Model.Subscriber.NAME"/>
+        </div>
+    </div>
+</div>
+<div class="col-md-2">
+    <div class="form-group vertical">
+        <label for="exampleInputEmail1" class="col-sm-4">Ata</label>
+        <div class="input-group col-sm-8">
+            <input class="form-group ATAADIMODAL" type="text" value="@Model.Subscriber.MIDDLENAME"/>
+        </div>
+    </div>
+</div>
+<div class="col-md-2">
+    <div class="form-group vertical">
+        <label for="exampleInputEmail1" class="col-sm-4">Köhne</label>
+        <div class="input-group col-sm-8">
+            <input class="form-group KOHNEKODMODAL" type="text" value="@Model.Subscriber.CODE_1"/>
+        </div>
+    </div>
+</div>
+<div class="col-md-2">
+    <div class="form-group vertical">
+        <label for="exampleInputEmail1" class="col-sm-8">Əlaqə</label>
+        <div class="input-group col-sm-4">
+            <input class="form-group ELAQEMODAL" style="width:100px;" type="text" value="@Model.Subscriber.CONTACT"/>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <label class="form-control">Digər Axtariş</label>
+</div>
+<div class="col-md-4">
+    <div class="form-group form-horizontal">
+        <label for="exampleInputEmail1" class="col-sm-5">Sayğac No</label>
+        <div class="input-group col-sm-7">
+            <input class="form-group" type="text" />
+        </div>
+    </div>
+</div>
+<div class="col-md-4">
+    <div class="form-group form-horizontal">
+        <label for="exampleInputEmail1" class="col-sm-5">Müqavilə</label>
+        <div class="input-group col-sm-7">
+            <input class="form-group" type="text" />
+        </div>
+    </div>
+</div>
+<div class="col-md-4">
+    <span class="input-group-btn">
+        <button class="btn btn-warning" type="button" data-toggle="modal" data-target="#ABONENTINSECILMESI-modal"><span class="glyphicon glyphicon-zoom-in"></span>Axtarış</button>
+    </span>
+</div>
+<div class="col-md-12">
+    <label class="form-control">Nəticə</label>
+</div>
+<div class="col-md-12">
+    <div class="table-wrapper-scrool-y my-custom-scroolbar">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>SubID</th>
+                    <th>Ad</th>
+                    <th>Soyad</th>
+                    <th>Ata Adı</th>
+                    <th>Köhne Kod</th>
+                    <th>Əlaqə</th>
+                    <th>Şəhər ID</th>
+                    <th>Şəhər Adı</th>
+                    <th>Matrix ID</th>
+                    <th>MATRIX</th>
+                    <th>Küçə İD</th>
+                    <th>Küçə</th>
+                    <th>Bina İD</th>
+                    <th>Mənzil İD</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    @foreach (var subscriberSearch in Model.SubscriberSearches)
+                    {
+                    <tr>
+                        <td><a asp-controller="Abonentler" asp-action="GETSUBSCRIBERBySUBID" asp-route-id="@subscriberSearch.SUBID">@subscriberSearch.SUBID</a></td>
+                        <td>@subscriberSearch.NAME</td>
+                        <td>@subscriberSearch.SURNAME</td>
+                        <td>@subscriberSearch.MIDDLENAME</td>
+                        <td>@subscriberSearch.CODE_1</td>
+                        <td>@subscriberSearch.CONTACT</td>
+                        <td>@subscriberSearch.RayonID</td>
+                        <td>@subscriberSearch.SUBJECTNAME</td>
+                        <td>@subscriberSearch.MatrixID</td>
+                        <td>@subscriberSearch.MATRIXNAME</td>
+                        <td>@subscriberSearch.KUCE</td>
+                        <td>@subscriberSearch.STREETNAME</td>
+                        <td>@subscriberSearch.Bina</td>
+                        <td>@subscriberSearch.Menzil</td>
+                    </tr>
+                }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
